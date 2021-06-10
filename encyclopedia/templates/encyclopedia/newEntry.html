@@ -1,0 +1,29 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title%}
+    {{title}}
+{% endblock %}
+
+{% block body%}
+
+{% if edit %}
+<h1>{{title}}</h1>
+{% else %}
+<h1>New Entry</h1>
+{% endif %}
+
+{% if alreadyExist %}
+<div class="alert alert-danger" role="alert">
+    {{title}} entry already exists! 
+    <a href="/wiki/{{title}}">Click here to redirect</a>
+</div>
+{% endif %}
+
+<div>
+    <form action="{% url 'newEntry' %}" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="btn btn-primary" type="submit">
+    </form>
+</div>
+{% endblock %}
